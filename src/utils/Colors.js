@@ -1,0 +1,10 @@
+/**
+ * Generate a random color
+ * @returns {`${number}, ${number}, ${number}`}
+ */
+export const generateRandomColor = () => {
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    return `${r}, ${g}, ${b}`;
+}
