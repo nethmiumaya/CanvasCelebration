@@ -1,121 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fireworks Animation</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: black;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="fireworksCanvas"></canvas>
-
-  <script>
-    const canvas = document.getElementById('fireworksCanvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Firework {
-      constructor(x, y, color, text = '') {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.text = text;
-        this.particles = [];
-        this.textOpacity = 1;
-
-        for (let i = 0; i < 100; i++) {
-          this.particles.push(new Particle(this.x, this.y, this.color));
-        }
-      }
-
-      draw() {
-        this.particles.forEach(particle => particle.update());
-        if (this.text) {
-          ctx.font = '48px serif';
-          ctx.fillStyle = `rgba(${this.color}, ${this.textOpacity})`;
-          ctx.fillText(this.text, this.x, this.y);
-        }
-      }
-    }
-
-    class Particle {
-      constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.radius = Math.random() * 2 + 1;
-        this.angle = Math.random() * Math.PI * 2;
-        this.speed = Math.random() * 5 + 1;
-        this.opacity = 1;
-        this.fadeRate = 0.01;
-      }
-
-      update() {
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-        this.opacity -= this.fadeRate;
-
-        if (this.opacity > 0) {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
-          ctx.fill();
-        }
-      }
-    }
-
-    const fireworks = [];
-    const messages = ['H', 'a', 'p', 'p', 'y', ' ', 'N', 'e', 'w', ' ', 'Y', 'e', 'a', 'r'];
-    let messageIndex = 0;
-    let intervalId;
-
-    function spawnFirework() {
-      const letterSpacing = 30; 
-      const x = (canvas.width / 2) - (messages.length * letterSpacing / 2) + (messageIndex * letterSpacing);
-      const y = canvas.height / 2;
-      const color = `${Math.floor(Math.random() * 255)}, 
-                     ${Math.floor(Math.random() * 255)}, 
-                     ${Math.floor(Math.random() * 255)}`;
-      const text = messages[messageIndex];
-      fireworks.push(new Firework(x, y, color, text));
-      messageIndex++;
-
-      if (messageIndex >= messages.length) {
-        clearInterval(intervalId);
-        setTimeout(startFireworks, 2000); // Restart after 2 seconds
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      fireworks.forEach((firework, index) => {
-        firework.draw();
-        if (firework.particles.every(p => p.opacity <= 0)) {
-          firework.textOpacity = 1; // Keep text visible
-        }
-      });
-      requestAnimationFrame(animate);
-    }
-
-    function startFireworks() {
-      messageIndex = 0;
-      fireworks.length = 0; // Clear existing fireworks
-      intervalId = setInterval(spawnFirework, 500);
-    }
-
-    startFireworks();
-    animate();
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/fireworks-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CanvasCelebration</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
