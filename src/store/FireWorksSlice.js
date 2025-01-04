@@ -1,12 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 /**
  * This slice of the Redux store is responsible for managing the state of the fireworks display.
- * It stores the messages to be displayed, the current message index, and the data for the fireworks.
+ * It stores the messages to be displayed as fireworks, the selected color, the index of the current message,
  * @constant initialState
- * @type {{messages: string[], messageIndex: number, fireworksData: *[]}}
+ * @type {{messages: Array, selectedColor: string, messageIndex: number, fireworksData: Array}}
  */
 const initialState = {
-    messages: ['H', 'a', 'p', 'p', 'y', ' ', 'N', 'e', 'w', ' ', 'Y', 'e', 'a', 'r'],
+    messages: [], // Populated from user input
+    selectedColor: '',
     messageIndex: 0,
     fireworksData: [] // Only store position and text data
 };
@@ -15,6 +16,12 @@ export const fireworksSlice = createSlice({
     name: 'fireworks',
     initialState,
     reducers: {
+        setMessages: (state, action) => {
+            state.messages = action.payload;
+        },
+        setSelectedColor: (state, action) => {
+            state.selectedColor = action.payload;
+        },
         addFireworkData: (state, action) => {
             state.fireworksData.push(action.payload);
         },
@@ -29,6 +36,8 @@ export const fireworksSlice = createSlice({
 });
 
 export const {
+    setMessages,
+    setSelectedColor,
     addFireworkData,
     updateMessageIndex,
     clearFireworks,

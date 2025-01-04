@@ -1,4 +1,6 @@
-import FireworksCanvas from './components/FireworksCanvas';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Home from './components/Home.jsx';
+import FireworksDisplay from './components/FireworksDisplay.jsx';
 /**
  * @description The main component of the application
  * @returns {JSX.Element} The main component
@@ -9,7 +11,12 @@ import FireworksCanvas from './components/FireworksCanvas';
  */
 function App() {
     return (
-        <FireworksCanvas/>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/display" element={<FireworksDisplay/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 

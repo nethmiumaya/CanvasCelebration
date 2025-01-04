@@ -22,21 +22,21 @@ const FireworksCanvas = () => {
     const config = getResponsiveConfig(width);
 
     const dispatch = useDispatch();
-    const {messages} = useSelector(state => state.fireworks);
+    const {messages, selectedColor} = useSelector(state => state.fireworks);
 
     const spawnFirework = () => {
-        if (!canvasRef.current) return;
+        if (!canvasRef.current || messages.length === 0) return;
 
         const canvas = canvasRef.current;
         const startX = (canvas.width / 2) - ((messages.length * config.letterSpacing) / 2);
         const y = canvas.height / 2;
 
-        // Use the locally tracked message index
+        // Use the locally tracked message index to spawn fireworks
         const x = startX + (currentMessageIndex.current * config.letterSpacing);
-        const color = generateRandomColor();
+        const color = selectedColor || generateRandomColor(); // Use selected color if available
         const text = messages[currentMessageIndex.current];
 
-        // Spawn firework
+        // Spawn firework and update the message index
         const firework = new Firework(x, y, color, text, config);
         setFireworks(prev => [...prev, firework]);
 
@@ -45,7 +45,7 @@ const FireworksCanvas = () => {
         // Increment local ref (manually track)
         currentMessageIndex.current = (currentMessageIndex.current + 1) % messages.length;
 
-        // Restart after the entire message is shown
+        // Restart after the entire message has been displayed
         if (currentMessageIndex.current === 0) {
             clearInterval(intervalRef.current);
             setTimeout(startFireworks, 2000);
@@ -68,6 +68,8 @@ const FireworksCanvas = () => {
     };
 
     const startFireworks = () => {
+        if (messages.length === 0) return;
+
         setFireworks([]);
         dispatch(clearFireworks());
         currentMessageIndex.current = 0;
@@ -84,6 +86,7 @@ const FireworksCanvas = () => {
     }, [width, height]);
     /**
      * Start the fireworks display when the component mounts
+     * and clean up when it unmounts
      */
     useEffect(() => {
         startFireworks();
@@ -97,7 +100,7 @@ const FireworksCanvas = () => {
                 clearInterval(intervalRef.current);
             }
         };
-    }, [width]); // Restart animation when width changes
+    }, [width, messages]); // Added messages as dependency
 
     return (
         <div className="fixed inset-0 w-full h-full bg-black">
