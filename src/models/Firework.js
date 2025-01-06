@@ -1,4 +1,5 @@
 import {Particle} from './Particle';
+import {FIREWORK_STYLES} from "../constants/FireworkStyles.js";
 /**
  * @class - represents a firework that is launched and explodes into particles.
  * Fireworks have a position, color, and text.
@@ -9,7 +10,7 @@ import {Particle} from './Particle';
  * @method isComplete - Determines if the firework has finished exploding
  */
 export class Firework {
-    constructor(x, y, color, text = '', config) {
+    constructor(x, y, color, text = '', config, styleId = 'classic') {
         this.x = x;
         this.y = y;
         this.color = color;
@@ -17,9 +18,21 @@ export class Firework {
         this.particles = [];
         this.textOpacity = 1;
         this.config = config;
+        // Get style configuration
+        const styleConfig = FIREWORK_STYLES[styleId];
         // Create explosion particles
         for (let i = 0; i < config.particleCount; i++) {
-            this.particles.push(new Particle(this.x, this.y, this.color, config));
+            this.particles.push(
+                new Particle(
+                    this.x,
+                    this.y,
+                    this.color,
+                    {
+                        ...config,
+                        ...styleConfig
+                    }
+                )
+            );
         }
     }
 
