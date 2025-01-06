@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './components/Home.jsx';
 import FireworksDisplay from './components/FireworksDisplay.jsx';
 /**
@@ -11,12 +11,12 @@ import FireworksDisplay from './components/FireworksDisplay.jsx';
  */
 function App() {
     return (
-        <BrowserRouter>
+        <Router basename="/CanvasCelebration">
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/display" element={<FireworksDisplay/>}/>
             </Routes>
-        </BrowserRouter>
+        </Router>
     );
 }
 
