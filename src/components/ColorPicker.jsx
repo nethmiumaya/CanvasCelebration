@@ -1,10 +1,11 @@
 import {useState} from 'react';
+import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 /**
  * This component is responsible for rendering the color picker.
  * @param {string} selectedColor - The selected color
  * @param {function} onColorChange - The function to call when the color changes
- * @returns {JSX.Element}
+ * @returns {JSX.Element} - The color picker component
  */
 const PRESET_COLORS = [
     {name: 'Purple', value: '147, 51, 234'},
@@ -19,6 +20,7 @@ const PRESET_COLORS = [
 
 const ColorPicker = ({selectedColor, onColorChange}) => {
     const [customColor, setCustomColor] = useState('#000000');
+    const isDark = useSelector(state => state.theme.isDark);
 
     const handleCustomColorChange = (e) => {
         const color = e.target.value;
@@ -32,7 +34,7 @@ const ColorPicker = ({selectedColor, onColorChange}) => {
 
     return (
         <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-300">
+            <label className={`block text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                 Select Color
             </label>
 
@@ -46,14 +48,16 @@ const ColorPicker = ({selectedColor, onColorChange}) => {
                                 ? 'border-white scale-110'
                                 : 'border-transparent hover:border-gray-600'
                         }`}
-                        style={{backgroundColor: `rgb(${color.value})`}}
+                        style={{ backgroundColor: `rgb(${color.value})` }}
                         title={color.name}
                     />
                 ))}
             </div>
 
             <div className="flex items-center space-x-4">
-                <label className="text-sm text-gray-400">Custom Color:</label>
+                <label className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Custom Color:
+                </label>
                 <input
                     type="color"
                     value={customColor}

@@ -8,6 +8,7 @@ import {getResponsiveConfig} from '../utils/responsive';
 /**
  * The FireworksCanvas component is responsible for rendering the fireworks display.
  * @returns {JSX.Element}
+ * @method clearCanvas - Clears the canvas
  * @method spawnFirework - Spawns a firework at a random position
  * @method animate - Animates the fireworks display
  * @method startFireworks - Starts the fireworks display
@@ -22,7 +23,16 @@ const FireworksCanvas = () => {
     const config = getResponsiveConfig(width);
 
     const dispatch = useDispatch();
-    const {messages, selectedColor} = useSelector(state => state.fireworks);
+    const {messages, selectedColor, selectedStyle} = useSelector(state => state.fireworks);
+    const isDark = useSelector(state => state.theme.isDark);
+
+    const clearCanvas = () => {
+        if (!canvasRef.current) return;
+        const ctx = canvasRef.current.getContext('2d');
+        // Set solid background color first
+        ctx.fillStyle = isDark ? '#000000' : '#ffffff';
+        ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    };
 
     const spawnFirework = () => {
         if (!canvasRef.current || messages.length === 0) return;
@@ -33,14 +43,14 @@ const FireworksCanvas = () => {
 
         // Use the locally tracked message index to spawn fireworks
         const x = startX + (currentMessageIndex.current * config.letterSpacing);
-        const color = selectedColor || generateRandomColor(); // Use selected color if available
+        const color = selectedColor || generateRandomColor();
         const text = messages[currentMessageIndex.current];
 
         // Spawn firework and update the message index
-        const firework = new Firework(x, y, color, text, config);
+        const firework = new Firework(x, y, color, text, config, selectedStyle);
         setFireworks(prev => [...prev, firework]);
 
-        dispatch(addFireworkData({x, y, color, text}));
+        dispatch(addFireworkData({ x, y, color, text }));
         dispatch(updateMessageIndex());
         // Increment local ref (manually track)
         currentMessageIndex.current = (currentMessageIndex.current + 1) % messages.length;
@@ -56,7 +66,7 @@ const FireworksCanvas = () => {
         if (!canvasRef.current) return;
 
         const ctx = canvasRef.current.getContext('2d');
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)';
         ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
         setFireworks(prev => prev.filter(firework => {
@@ -76,14 +86,15 @@ const FireworksCanvas = () => {
         intervalRef.current = setInterval(spawnFirework, 600);
     };
     /**
-     * Resize the canvas when the window dimensions change
+     * Resize the canvas when the window dimensions change or the theme changes
      */
     useEffect(() => {
         if (!canvasRef.current) return;
 
         canvasRef.current.width = width;
         canvasRef.current.height = height;
-    }, [width, height]);
+        clearCanvas(); // Set initial background
+    }, [width, height, isDark]);
     /**
      * Start the fireworks display when the component mounts
      * and clean up when it unmounts
@@ -103,7 +114,7 @@ const FireworksCanvas = () => {
     }, [width, messages]); // Added messages as dependency
 
     return (
-        <div className="fixed inset-0 w-full h-full bg-black">
+        <div className="fixed inset-0 w-full h-full">
             <canvas
                 ref={canvasRef}
                 className="block w-full h-full touch-none"
