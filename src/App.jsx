@@ -1,6 +1,7 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {HashRouter, Routes, Route} from 'react-router-dom';
 import Home from './components/Home.jsx';
 import FireworksDisplay from './components/FireworksDisplay.jsx';
+import ErrorPage from "./components/ErrorPage.jsx";
 /**
  * @description The main component of the application
  * @returns {JSX.Element} The main component
@@ -11,12 +12,13 @@ import FireworksDisplay from './components/FireworksDisplay.jsx';
  */
 function App() {
     return (
-        <Router basename="/CanvasCelebration">
+        <HashRouter>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/display" element={<FireworksDisplay/>}/>
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
-        </Router>
+        </HashRouter>
     );
 }
 

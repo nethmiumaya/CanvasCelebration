@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {Moon, Sun} from 'lucide-react';
-import {toggleTheme} from '../store/ThemeSlice';
+import {toggleTheme} from '../store/ThemeSlice.js';
 /**
  * This component displays the theme toggle
  * @returns {JSX.Element} - The theme toggle component
@@ -37,4 +37,4 @@ const ThemeToggle = () => {
     );
 };
 
-export default ThemeToggle
+export default ThemeToggle;

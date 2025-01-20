@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import {ArrowLeft} from 'lucide-react';
 import {useSelector} from "react-redux";
-import FireworksCanvas from './FireworksCanvas';
+import FireworksCanvas from './FireworksCanvas.jsx';
 /**
  * FireworksDisplay component displays the fireworks canvas
  * @returns {JSX.Element} - The fireworks display component

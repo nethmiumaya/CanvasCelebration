@@ -1,4 +1,4 @@
-import {Particle} from './Particle';
+import {Particle} from './Particle.js';
 import {FIREWORK_STYLES} from "../constants/FireworkStyles.js";
 /**
  * @class - represents a firework that is launched and explodes into particles.

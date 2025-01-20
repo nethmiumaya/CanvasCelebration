@@ -1,10 +1,10 @@
-import {useEffect, useRef, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {addFireworkData, updateMessageIndex, clearFireworks} from '../store/FireworksSlice';
-import {Firework} from '../models/Firework';
-import {generateRandomColor} from '../utils/Colors';
-import {useWindowDimensions} from '../hooks/useWindowDimensions';
-import {getResponsiveConfig} from '../utils/responsive';
+import {useRef, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useWindowDimensions} from '../hooks/UseWindowDimensions.js';
+import {addFireworkData, clearFireworks, updateMessageIndex} from "../store/FireWorksSlice.js";
+import {getResponsiveConfig} from '../utils/Responsive.js';
+import {generateRandomColor} from "../utils/Colors.js";
+import {Firework} from "../models/Firework.js";
 /**
  * The FireworksCanvas component is responsible for rendering the fireworks display.
  * @returns {JSX.Element}
