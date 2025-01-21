@@ -1,11 +1,11 @@
 <!-- PROJECT LOGO -->
 <a id="readme-top"></a>
 <div align="center">
-  <a href="https://github.com/SE10-IJSE/SE10-NETWORK-FRONTEND">
-    <img src="public\fireworks-icon.svg" alt="CanvasCelebration Logo" width="70" height="70">
+  <a href="https://github.com/nethmiumaya/CanvasCelebration/tree/main/src">
+    <img src="/public/fireworks-icon.svg" alt="CanvasCelebration Logo" width="70" height="70">
   </a>
 
-  <h2 align="center">Canvas Celebration</h2>
+<h2 align="center">Canvas Celebration</h2>
 
   <p align="center">
    The <strong>CanvasCelebration</strong> project is a frontend application designed to create vibrant fireworks animations that spell out user input text with colorful, particle-based effects. It is fully customizable and responsive, making it perfect for celebrating occasions with stunning visuals. The project includes features such as user text input, fireworks styles selection, theme selection (light and dark), and text color options. The application is built <strong>using JavaScript, React, and Tailwind.</strong>
@@ -37,19 +37,19 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Desktop - 1](src/assets/canvascelebration-readme-preview.png)
+![Desktop - 1](/src/assets/canvascelebration-readme-preview.png)
 
 **User Text Input**:
-  - Allows users to input text that will be displayed with fireworks animations.
-    
+- Allows users to input text that will be displayed with fireworks animations.
+
 **Fireworks Styles Selection**:
- - Users can choose from different styles of fireworks animations.
-    
+- Users can choose from different styles of fireworks animations.
+
 **Theme Selection**:
- - Toggle between light and dark themes to suit user preferences.
-    
+- Toggle between light and dark themes to suit user preferences.
+
 **Text Color Options**:
- - Customize the color of the text displayed with the fireworks animations..
+- Customize the color of the text displayed with the fireworks animations..
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -76,7 +76,7 @@ Before setting up the project, make sure you have the following tools and librar
 
 - [Node.js](https://nodejs.org/)  
   Required to run the project and manage dependencies via npm.
-  
+
 - [NPM](https://www.npmjs.com/)  
   Comes with Node.js. Used to install project dependencies.
 
